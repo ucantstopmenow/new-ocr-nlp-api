@@ -1,0 +1,62 @@
+# Currículo AI - API de OCR e LLM
+
+## Visão Geral
+
+Esta é uma API RESTful construída com Python e FastAPI que automatiza a análise de currículos. A aplicação extrai texto de múltiplos documentos (PDF, JPG, PNG) via OCR, e utiliza modelos de LLM da Hugging Face para:
+1. Gerar resumos concisos de cada currículo.
+2. Responder a perguntas específicas sobre o conteúdo dos documentos, retornando os candidatos mais relevantes com justificativas.
+
+O projeto é totalmente containerizado com Docker para garantir um setup simples e consistente.
+
+## Tech Stack
+- **Backend:** Python 3.9, FastAPI
+- **OCR:** PaddleOCR
+- **IA / LLM:** Hugging Face Transformers (DistilBERT, DistilBART)
+- **Banco de Dados:** MongoDB (para logs de auditoria)
+- **Containerização:** Docker, Docker Compose
+
+## Pré-requisitos
+- Docker
+- Docker Compose (geralmente já vem com o Docker Desktop)
+
+## Como Executar (Método Recomendado)
+
+Com o Docker em execução, siga estes 3 passos simples para ter todo o ambiente (API + Banco de Dados) rodando em menos de um minuto.
+
+### 1. Clone o Repositório
+
+```bash
+git clone <url-do-seu-repositorio>
+cd <nome-do-repositorio>
+```
+
+### 2. Crie o Arquivo de Ambiente (.env)
+
+Crie um arquivo chamado `.env` na raiz do projeto com o seguinte conteúdo. É assim que a API saberá o endereço do banco de dados na rede Docker.
+
+```env
+MONGO_URI=mongodb://mongodb:27017/
+DB_NAME=curriculo_ai_logs
+COLLECTION_NAME=requests_log
+```
+
+### 3. Suba os Containers com Docker Compose
+
+Este único comando irá construir a imagem da API, criar a rede e iniciar os containers da API e do MongoDB na ordem correta.
+
+```bash
+docker-compose up --build
+```
+
+Aguarde o processo terminar. Você verá os logs da API no seu terminal.
+
+Pronto! A API está rodando e acessível.
+
+- **Documentação Interativa (Swagger):** http://localhost:8000/docs
+- **Endpoint Principal:** `POST /api/v1/process`
+
+Para parar todo o ambiente, pressione `CTRL+C` no terminal e depois execute:
+
+```bash
+docker-compose down
+```

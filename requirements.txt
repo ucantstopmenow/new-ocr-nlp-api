@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+paddleocr
+paddlepaddle
+pdf2image
+transformers
+torch
+pymongo
+pydantic
+python-multipart
+loguru
+filetype
+numpy
+python-decouple
+sentencepiece

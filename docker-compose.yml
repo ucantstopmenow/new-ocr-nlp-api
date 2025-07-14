@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - curriculo-net
+
+  api:
+    build: .
+    container_name: ia-api
+    ports:
+      - "8000:8000"
+    networks:
+      - curriculo-net
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+
+networks:
+  curriculo-net:
+    driver: bridge
+
+volumes:
+  mongo-data:
